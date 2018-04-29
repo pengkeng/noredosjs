@@ -41,8 +41,9 @@ module.exports = (rootPath = './', exclude = []) => {
             }))
             .on('data', function (file) {
                 fs.readFile(file.path, 'utf-8', (err, data) => {
-                    regexExtractor.extract(data).forEach((re) => {
-                        console.log(`/${re.source}/ is`, isSafeRegex(re) ? "SAFE" : "UNSAFE");
+                    regexExtractor.extract(data).forEach((result) => {
+                        const shortPath = path.relative(__dirname, file.path);
+                        console.log(`[${shortPath}:${result.startLine}:${result.startColumn}] /${result.regex.source}/ is`, isSafeRegex(result.regex) ? "SAFE" : "UNSAFE");
                     });
                 });
             });
