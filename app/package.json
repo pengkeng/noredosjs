@@ -1,0 +1,11 @@
+{
+    "name": "jsnoredos",
+    "version": "0.1.0",
+    "author": "David Jimenez",
+    "license": "MIT",
+    "description": "ReDoS checker for JavaScript programs",
+    "main": "index.js",
+    "dependencies": {
+    },
+    "scripts": "node index.js",
+}
