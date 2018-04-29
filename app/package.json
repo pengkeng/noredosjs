@@ -7,7 +7,8 @@
     "main": "index.js",
     "dependencies": {
         "esprima": "^4.0.0",
-        "klaw": "^2.1.1"
+        "klaw": "^2.1.1",
+        "through2": "^2.0.3"
     },
     "scripts": "node index.js"
 }
