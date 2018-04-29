@@ -2,10 +2,15 @@ const fs = require('fs');
 const path = require('path');
 const klaw = require('klaw');
 const through2 = require('through2');
+const isSafe = require('safe-regex');
 
 const { RegexExtractor } = require('./regexExtractor');
 
 module.exports = (rootPath = './', exclude = []) => {
+    function isSafeRegex(regex) {
+        return isSafe(regex);
+    }
+
     function run() {
         if (!rootPath || rootPath === '') {
             rootPath = './';
@@ -36,7 +41,9 @@ module.exports = (rootPath = './', exclude = []) => {
             }))
             .on('data', function (file) {
                 fs.readFile(file.path, 'utf-8', (err, data) => {
-                    console.log(regexExtractor.extract(data));
+                    regexExtractor.extract(data).forEach((re) => {
+                        console.log(`/${re.source}/ is`, isSafeRegex(re) ? "SAFE" : "UNSAFE");
+                    });
                 });
             });
     }
