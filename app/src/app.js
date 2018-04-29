@@ -43,7 +43,8 @@ module.exports = (rootPath = './', exclude = []) => {
                 fs.readFile(file.path, 'utf-8', (err, data) => {
                     regexExtractor.extract(data).forEach((result) => {
                         const shortPath = path.relative(__dirname, file.path);
-                        console.log(`[${shortPath}:${result.startLine}:${result.startColumn}] /${result.regex.source}/ is`, isSafeRegex(result.regex) ? "SAFE" : "UNSAFE");
+                        console.log(`[${shortPath}:${result.startLine}:${result.startColumn}]`);
+                        console.log(`/${result.regex.source}/ is`, isSafeRegex(result.regex) ? "SAFE" : "UNSAFE", '\n');
                     });
                 });
             });
