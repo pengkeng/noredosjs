@@ -1,7 +1,9 @@
+const fs = require('fs');
 const path = require('path');
 const klaw = require('klaw');
 const through2 = require('through2');
-const esprima = require('esprima');
+
+const { RegexExtractor } = require('./regexExtractor');
 
 module.exports = (rootPath = './', exclude = []) => {
     function run() {
@@ -16,6 +18,7 @@ module.exports = (rootPath = './', exclude = []) => {
             }) === undefined;
         };
 
+        const regexExtractor = new RegexExtractor();
         klaw(rootPath)
             .pipe(through2.obj(function (item, enc, next) {
                 if (filterExcludedFunc(item.path)) {
@@ -31,8 +34,10 @@ module.exports = (rootPath = './', exclude = []) => {
 
                 next();
             }))
-            .on('data', (file) => {
-               console.log(file.path);
+            .on('data', function (file) {
+                fs.readFile(file.path, 'utf-8', (err, data) => {
+                    console.log(regexExtractor.extract(data));
+                });
             });
     }
 
