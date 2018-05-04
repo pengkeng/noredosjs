@@ -1,8 +1,7 @@
-const util = require('util');
 const esprima = require('esprima');
 const traverse = require('traverse');
 
-const { RegexExtractorResult } = require('./RegexExtractorResult');
+const { RegexExtractorResult } = require('./regexExtractorResult');
 
 module.exports.RegexExtractor = class {
     isRegexParentNode(node) {
