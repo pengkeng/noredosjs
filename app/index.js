@@ -1,11 +1,10 @@
 const App = require('./src/app');
 
 const path = process.argv[2] || '';
-const app = App(
+App().run(
     path,
     [
         '.git',
         'node_modules',
     ],
 );
-app.run();

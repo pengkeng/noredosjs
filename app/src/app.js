@@ -1,9 +1,9 @@
 const { FileWalker } = require('./fileWalker');
 
-module.exports = (rootPath = './', exclude = []) => {
-    function run() {
+module.exports = () => {
+    function run(rootPath = './', exclude = [], stdout = true) {
         const fileWalker = new FileWalker(rootPath, exclude);
-        fileWalker.validate();
+        return fileWalker.validate(stdout);
     }
 
     return {
