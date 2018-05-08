@@ -1,9 +1,11 @@
+const getopts = require('getopts');
 const { FileWalker } = require('./fileWalker');
 
 module.exports = () => {
-    function run(rootPath = './', exclude = [], stdout = true) {
-        const fileWalker = new FileWalker(rootPath, exclude);
-        return fileWalker.validate(stdout);
+    async function run(rootPath, exclude, stdout, verbose) {
+        const fileWalker = new FileWalker(rootPath || './', exclude);
+        const results = await fileWalker.validate(stdout);
+        return results;
     }
 
     return {

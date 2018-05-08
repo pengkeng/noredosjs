@@ -1,10 +1,24 @@
+const getopts = require('getopts');
+
 const App = require('./src/app');
 
-const path = process.argv[2] || '';
+const options = getopts(process.argv.slice(2), {
+    alias: {
+        v: 'verbose',
+    },
+    default: {
+        exclude: [
+            '.git',
+            'node_modules',
+        ],
+        verbose: true,
+        stdout: true,
+    },
+});
+
 App().run(
-    path,
-    [
-        '.git',
-        'node_modules',
-    ],
+    options._[0],
+    [options.exclude],
+    options.stdout,
+    options.verbose,
 );
