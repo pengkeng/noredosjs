@@ -8,7 +8,8 @@ const { RegexExtractor } = require('./regexExtractor');
 const RegexValidator = require('./regexValidator')();
 
 module.exports.FileWalker = class {
-    constructor(rootPath, exclude) {
+    constructor(logger, rootPath, exclude) {
+        this._logger = logger;
         this.rootPath = rootPath;
         this.exclude = exclude;
     }
@@ -34,7 +35,7 @@ module.exports.FileWalker = class {
             this.rootPath = './';
         }
 
-        const regexExtractor = new RegexExtractor();
+        const regexExtractor = new RegexExtractor(this._logger);
         const self = this;
         const files = klawSync(this.rootPath)
             .filter(file => self.filterExcludedFiles(file.path))

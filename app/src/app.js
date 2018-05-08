@@ -1,10 +1,15 @@
-const getopts = require('getopts');
 const { FileWalker } = require('./fileWalker');
 const { ResultFormatter } = require('./resultFormatter');
 
-module.exports = () => {
-    async function run(rootPath, exclude, verbose, silent) {
-        const fileWalker = new FileWalker(rootPath, exclude);
+module.exports = (logger, consolePrinter) => {
+    async function run(
+        rootPath,
+        exclude,
+        verbose,
+        silent,
+    ) {
+        consolePrinter.print("STARTING SCAN...");
+        const fileWalker = new FileWalker(logger, rootPath, exclude);
         const results = await fileWalker.validate();
 
         if (!silent) {

@@ -4,6 +4,10 @@ const traverse = require('traverse');
 const { RegexExtractorResult } = require('./regexExtractorResult');
 
 module.exports.RegexExtractor = class {
+    constructor(logger) {
+        this._logger = logger;
+    }
+
     isRegexParentNode(node) {
         return ['VariableDeclarator', 'ExpressionStatement'].includes(node.type);
     }
@@ -47,7 +51,7 @@ module.exports.RegexExtractor = class {
                 }
             });
         } catch (e) {
-            console.log(`Failed to parse file: ${e.toString()}`);
+            this._logger.warn(`Failed to parse file: ${e.toString()}`);
         }
 
         return regexes;

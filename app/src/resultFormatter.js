@@ -20,7 +20,7 @@ module.exports.ResultFormatter = class {
     }
 
     getAllRegexLines() {
-        return this._results.map(r => r.toString()).join('\n');
+        return this._results.map(r => r.toString()).join('');
     }
 
     getBadRegexLines() {
@@ -32,10 +32,11 @@ module.exports.ResultFormatter = class {
     getShortReport() {
         return `REGEX SAFETY REPORT
 ------------------------
-Safe Regexes Found:\t${this.getSafeRegexCount()}
-Unsafe Regexes Found:\t${this.getUnsafeRegexCount()}
+SAFE REGEXES:\t${this.getSafeRegexCount()}
+UNSAFE REGEXES:\t${this.getUnsafeRegexCount()}
 ${this.getBadRegexLines().join('\n')}
-Total Regexes Scanned:\t${this.getTotalRegexCount()}
+------------------------
+TOTAL REGEXES SCANNED:\t${this.getTotalRegexCount()}
 `;
     }
 

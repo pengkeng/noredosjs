@@ -1,5 +1,7 @@
 const getopts = require('getopts');
+const winston = require('winston');
 
+const ConsolePrinter = require('./src/consolePrinter');
 const App = require('./src/app');
 
 const options = getopts(process.argv.slice(2), {
@@ -17,8 +19,17 @@ const options = getopts(process.argv.slice(2), {
     },
 });
 
-App().run(
+const consolePrinter = ConsolePrinter(!options.silent);
+const logger = new (winston.Logger)();
+
+if (options.debug) {
+    logger.add(winston.transports.Console);
+}
+
+App(logger, consolePrinter).run(
     options._[0] || './',
     [options.exclude],
     options.verbose,
+    options.silent,
+    options.debug,
 );
