@@ -26,7 +26,7 @@ module.exports.RegexExtractorResult = class {
     }
 
     getLocationString() {
-        return `[${this._filepath}:${this.startLine}:${this.startColumn}]`;
+        return `${this._filepath}:${this.startLine}:${this.startColumn}`;
     }
 
     toString() {

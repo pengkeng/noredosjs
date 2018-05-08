@@ -20,19 +20,9 @@ module.exports.FileWalker = class {
         }) === undefined;
     }
 
-    async validate(stdout, verbose) {
+    async validate() {
         let results = [];
-        let validationOutput = '';
         for await (const result of this.walk()) {
-            if (verbose) {
-                validationOutput += result.toString();
-                
-                if (stdout) {
-                    console.log(result.toString());
-                }
-            } else {
-            }
-
             results = results.concat(result);
         }
 

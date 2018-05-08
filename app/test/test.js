@@ -19,14 +19,14 @@ describe('App', () => {
         rootPath = `${testBasePath}/testBasic`;
 
         it('should ok all safe regexes', async () => {
-            actual = await App().run(`${rootPath}/good`, excludes, false);
+            actual = await App().run(`${rootPath}/good`, excludes, false, true);
             actual.forEach((result) => {
                 assert.equal(result.safe, true);
             });
         });
 
         it('should reject all unsafe regexes', async () => {
-            actual = await App().run(`${rootPath}/bad`, excludes, false);
+            actual = await App().run(`${rootPath}/bad`, excludes, false, true);
             actual.forEach((result) => {
                 assert.equal(result.safe, false);
             });
