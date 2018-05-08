@@ -12,6 +12,48 @@ noredos.js will traverse a directory recursively, fetching all JavaScript files 
     * +v10.0.0
     * v9.0.0: pass the `--harmony-async-iteration` flag when invoking Node
 
+## Example
+
+Scanning noredos.js (this project!) for any unsafe regexes, including all of its dependencies.
+
+```
+$ node index.js
+STARTING SCAN...
+REGEX SAFETY REPORT
+------------------------
+SAFE REGEXES:   264
+UNSAFE REGEXES: 27
+|    ../node_modules/brace-expansion/index.js:106:26
+|    ../node_modules/brace-expansion/index.js:107:24
+|    ../node_modules/cycle/cycle.js:128:8
+|    ../node_modules/diff/dist/diff.js:1004:20
+|    ../node_modules/diff/dist/diff.js:1059:45
+|    ../node_modules/diff/dist/diff.min.js:259:6
+|    ../node_modules/diff/dist/diff.min.js:272:44
+|    ../node_modules/diff/lib/patch/parse.js:27:19
+|    ../node_modules/diff/lib/patch/parse.js:82:44
+|    ../node_modules/minimatch/minimatch.js:524:24
+|    ../node_modules/minimist/index.js:93:19
+|    ../node_modules/mocha/lib/ms.js:39:15
+|    ../node_modules/mocha/mocha.js:1714:15
+|    ../node_modules/mocha/mocha.js:10050:20
+|    ../node_modules/mocha/mocha.js:10105:45
+|    ../node_modules/mocha/mocha.js:11846:14
+|    ../node_modules/ms/index.js:52:14
+|    ../node_modules/ret/lib/index.js:204:17
+|    ../node_modules/safe-regex/test/regex.js:22:4
+|    ../node_modules/safe-regex/test/regex.js:24:4
+|    ../node_modules/safe-regex/test/regex.js:25:4
+|    ../node_modules/safe-regex/test/regex.js:26:4
+|    ../node_modules/safe-regex/test/regex.js:27:4
+|    ../node_modules/safe-regex/test/regex.js:28:4
+|    ../node_modules/stack-trace/lib/stack-trace.js:42:33
+|    ../node_modules/winston/lib/winston/logger.js:225:15
+|    ../test/data/testBasic/bad/badRegexes.js:1:15
+------------------------
+TOTAL REGEXES SCANNED:  291
+```
+
 ## Usage
 
 ```
