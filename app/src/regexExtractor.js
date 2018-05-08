@@ -20,29 +20,35 @@ module.exports.RegexExtractor = class {
 
     extract(text) {
         const regexes = [];
-        const ast = esprima.parseModule(text, { loc: true }, (node) => {
-            if (this.isRegexParentNode(node)) {
-                traverse(node).map((n) => {
-                    if (!n || n.length === 0) {
-                        return;
-                    }
+        let ast = null;
 
-                    if ((n.type === 'Literal' && n.hasOwnProperty('regex') && n.regex.hasOwnProperty('pattern'))
-                    ) {
-                        const regex = new RegExp(n.regex.pattern);
-                        const result = new RegexExtractorResult(regex, n.loc);
-                        this.addResultToList(regexes, result);
+        try {
+            ast = esprima.parseModule(text, { loc: true }, (node) => {
+                if (this.isRegexParentNode(node)) {
+                    traverse(node).map((n) => {
+                        if (!n || n.length === 0) {
+                            return;
+                        }
 
-                    } else if (n.hasOwnProperty('callee') && n.callee.name && n.callee.name.toLowerCase() === 'regexp') {
-                        if (n.arguments && n.arguments.length > 0 && n.arguments[0].type === 'Literal') {
-                            const regex = new RegExp(n.arguments[0].value);
+                        if ((n.type === 'Literal' && n.hasOwnProperty('regex') && n.regex.hasOwnProperty('pattern'))
+                        ) {
+                            const regex = new RegExp(n.regex.pattern);
                             const result = new RegexExtractorResult(regex, n.loc);
                             this.addResultToList(regexes, result);
+
+                        } else if (n.hasOwnProperty('callee') && n.callee.name && n.callee.name.toLowerCase() === 'regexp') {
+                            if (n.arguments && n.arguments.length > 0 && n.arguments[0].type === 'Literal') {
+                                const regex = new RegExp(n.arguments[0].value);
+                                const result = new RegexExtractorResult(regex, n.loc);
+                                this.addResultToList(regexes, result);
+                            }
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        } catch (e) {
+            console.log(`Failed to parse file: ${e.toString()}`);
+        }
 
         return regexes;
     }
