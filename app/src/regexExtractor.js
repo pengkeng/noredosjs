@@ -18,7 +18,7 @@ module.exports.RegexExtractor = class {
         }
     }
 
-    extract(text) {
+    extract(path, text) {
         const regexes = [];
         let ast = null;
 
@@ -33,13 +33,13 @@ module.exports.RegexExtractor = class {
                         if ((n.type === 'Literal' && n.hasOwnProperty('regex') && n.regex.hasOwnProperty('pattern'))
                         ) {
                             const regex = new RegExp(n.regex.pattern);
-                            const result = new RegexExtractorResult(regex, n.loc);
+                            const result = new RegexExtractorResult(regex, n.loc, path);
                             this.addResultToList(regexes, result);
 
                         } else if (n.hasOwnProperty('callee') && n.callee.name && n.callee.name.toLowerCase() === 'regexp') {
                             if (n.arguments && n.arguments.length > 0 && n.arguments[0].type === 'Literal') {
                                 const regex = new RegExp(n.arguments[0].value);
-                                const result = new RegexExtractorResult(regex, n.loc);
+                                const result = new RegexExtractorResult(regex, n.loc, path);
                                 this.addResultToList(regexes, result);
                             }
                         }

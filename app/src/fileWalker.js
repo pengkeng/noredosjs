@@ -20,18 +20,20 @@ module.exports.FileWalker = class {
         }) === undefined;
     }
 
-    async validate(stdout = true) {
+    async validate(stdout, verbose) {
         let results = [];
-        for await (const file of this.walk()) {
-            const regex = file.result.regex;
-
-            if (stdout) {
-                const shortPath = path.relative(__dirname, file.path);
-                console.log(`[${shortPath}:${regex.startLine}:${regex.startColumn}]`);
-                console.log(`/${regex.regex.source}/ is`, file.result.safe ? "SAFE" : "UNSAFE", '\n');
+        let validationOutput = '';
+        for await (const result of this.walk()) {
+            if (verbose) {
+                validationOutput += result.toString();
+                
+                if (stdout) {
+                    console.log(result.toString());
+                }
+            } else {
             }
 
-            results = results.concat(file);
+            results = results.concat(result);
         }
 
         return results;
@@ -52,11 +54,12 @@ module.exports.FileWalker = class {
 
         for (const file of files) {
             const data = await readFile(file.path, 'utf-8');
-            const results = regexExtractor.extract(data)
+            const shortPath = path.relative(__dirname, file.path);
+            const results = regexExtractor.extract(shortPath, data)
                 .map(result => RegexValidator.validate(result));
 
             for (const result of results) {
-                yield { result, path: file.path };
+                yield result;
             }
         }
     }

@@ -20,15 +20,15 @@ describe('App', () => {
 
         it('should ok all safe regexes', async () => {
             actual = await App().run(`${rootPath}/good`, excludes, false);
-            actual.forEach((file) => {
-                assert.equal(file.result.safe, true);
+            actual.forEach((result) => {
+                assert.equal(result.safe, true);
             });
         });
 
         it('should reject all unsafe regexes', async () => {
             actual = await App().run(`${rootPath}/bad`, excludes, false);
-            actual.forEach((file) => {
-                assert.equal(file.result.safe, false);
+            actual.forEach((result) => {
+                assert.equal(result.safe, false);
             });
         });
     });

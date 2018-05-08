@@ -11,4 +11,11 @@ module.exports.RegexValidatorResult = class {
     get safe() {
         return this._safe;
     }
+
+    toString() {
+        return `
+${this._regex.getLocationString()}
+${this._regex.toString()} => ${(this._safe ? 'SAFE' : 'UNSAFE')}
+`;
+    }
 };

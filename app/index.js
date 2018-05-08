@@ -17,7 +17,7 @@ const options = getopts(process.argv.slice(2), {
 });
 
 App().run(
-    options._[0],
+    options._[0] || './',
     [options.exclude],
     options.stdout,
     options.verbose,
