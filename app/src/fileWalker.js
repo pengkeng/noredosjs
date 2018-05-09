@@ -14,8 +14,8 @@ module.exports.FileWalker = class {
         this.exclude = exclude;
     }
 
-    filterExcludedFiles(file) {
-        const filePath = path.relative(this.rootPath, file);
+    filterExcludedFiles(absPath) {
+        const filePath = path.relative(this.rootPath, absPath);
         return this.exclude.find((excludedPath, idx) => {
             return filePath.indexOf(excludedPath) !== -1;
         }) === undefined;

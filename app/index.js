@@ -28,7 +28,7 @@ if (options.debug) {
 
 App(logger, consolePrinter).run(
     options._[0] || './',
-    [options.exclude],
+    options.exclude && options.exclude.length > 0 ? options.exclude : [],
     options.verbose,
     options.silent,
     options.debug,
