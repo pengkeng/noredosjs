@@ -73,8 +73,8 @@ node index.js [flags] -- path/to/js/project
 
 ### Default
 
-The default regex validation backend makes use of [https://www.npmjs.com/package/safe-regex](safe-regex), which will generate a report with the number of safe and unsafe regexes that were found, and will optionally print them all out, if the `--verbose` flag is passed. This engine is selected by default as it is very fast and stable.
+The default regex validation backend makes use of [safe-regex](https://www.npmjs.com/package/safe-regex), which will generate a report with the number of safe and unsafe regexes that were found, and will optionally print them all out, if the `--verbose` flag is passed. This engine is selected by default as it is very fast and stable.
 
 ### rxxr
 
-The rxxr backend is powered by the [http://www.cs.bham.ac.uk/~hxt/research/rxxr2/](rxxr2 static analyser), which will carry out a more exhaustive analysis of the regexes in your project, providing more information than the default backend will do. However, be warned this engine is slower and more costly to run than the default engine and is prone to run out of memory when given certain inputs.
+The rxxr backend is powered by the [rxxr2 static analyser](http://www.cs.bham.ac.uk/~hxt/research/rxxr2/), which will carry out a more exhaustive analysis of the regexes in your project, providing more information than the default backend will do. However, be warned this engine is slower and more costly to run than the default engine and is prone to run out of memory when given certain inputs.
