@@ -11,6 +11,7 @@ noredos.js will traverse a directory recursively, fetching all JavaScript files 
 * Node
     * +v10.0.0
     * v9.0.0: pass the `--harmony-async-iteration` flag when invoking Node
+* (rxxr2 backend only) OCaml
 
 ## Example
 
@@ -64,5 +65,16 @@ node index.js [flags] -- path/to/js/project
 
 * `--verbose`: print out every regex found along with its safety assessment in addition to the overall safety summary. Default: `false`
 * `--silent`: do not print any output to standard output. At the moment the presence of this flag will not redirect the output anywhere else, as it's used mainly for the automated test suite. Default: `false`
-* `--exclude`: exclude directory from regex search. You can pass this flag multiple times to exclude more than one directory. Default: ['.git', 'node_modules']`
+* `--exclude`: exclude directory from regex search. You can pass this flag multiple times to exclude more than one directory. To include all directories, including those removed by default, pass the `--exclude` flag without arguments to the application. Default: ['.git', 'node_modules']`
 * `--debug`: enable debug mode. All errors and logging statements will be shown. Default: `false`
+* `--backend`: choose regex validation backend to use. Available backends are `default` and `rxxr`. See the backends section for an explanation of these. Default: `default`
+
+## Backends
+
+### Default
+
+The default regex validation backend makes use of [https://www.npmjs.com/package/safe-regex](safe-regex), which will generate a report with the number of safe and unsafe regexes that were found, and will optionally print them all out, if the `--verbose` flag is passed. This engine is selected by default as it is very fast and stable.
+
+### rxxr
+
+The rxxr backend is powered by the [http://www.cs.bham.ac.uk/~hxt/research/rxxr2/](rxxr2 static analyser), which will carry out a more exhaustive analysis of the regexes in your project, providing more information than the default backend will do. However, be warned this engine is slower and more costly to run than the default engine and is prone to run out of memory when given certain inputs.

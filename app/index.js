@@ -16,6 +16,7 @@ const options = getopts(process.argv.slice(2), {
         verbose: false,
         silent: false, // Do not print output to stdout
         debug: false, // Print error messages and other logging information to the console
+        backend: 'default',
     },
 });
 
@@ -28,8 +29,9 @@ if (options.debug) {
 
 App(logger, consolePrinter).run(
     options._[0] || './',
-    [options.exclude],
+    options.exclude && options.exclude.length > 0 ? options.exclude : [],
     options.verbose,
     options.silent,
     options.debug,
+    options.backend,
 );
