@@ -6,16 +6,16 @@
     "description": "ReDoS checker for JavaScript programs",
     "main": "index.js",
     "dependencies": {
-        "esprima": "^4.0.0",
-        "getopts": "^2.0.6",
+        "esprima": "^4.0.1",
+        "getopts": "^2.2.5",
         "klaw-sync": "^4.0.0",
         "safe-regex": "^1.1.0",
-        "through2": "^2.0.3",
+        "through2": "^2.0.5",
         "traverse": "^0.6.6",
-        "winston": "^2.4.2"
+        "winston": "^2.4.4"
     },
     "devDependencies": {
-        "mocha": "^5.1.1"
+        "mocha": "^7.1.2"
     },
     "scripts": {
         "start": "node index.js",
